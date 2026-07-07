@@ -1,8 +1,10 @@
 // ─── Global API Configuration ────────────────────────────────────────────────
 
 /** Base URL for all backend API calls. Change this once to affect the whole app. */
-export const API_BASE_URL =
-  "https://admin-moderator-backend-staging.up.railway.app/api";
+export const API_BASE_URL = 
+  import.meta.env.MODE === 'development' 
+    ? '/api'  // Uses Vite proxy in dev
+    : "https://admin-moderator-backend-staging.up.railway.app/api"; // Absolute URL in production
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

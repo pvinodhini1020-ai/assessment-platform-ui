@@ -1,7 +1,8 @@
 // ─── Global API Configuration ────────────────────────────────────────────────
 
 /** Base URL for all backend API calls. Change this once to affect the whole app. */
-export const API_BASE_URL = "/api";
+export const API_BASE_URL =
+  "https://admin-moderator-backend-staging.up.railway.app/api";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

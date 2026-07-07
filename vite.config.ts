@@ -3,17 +3,16 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import { nitro } from "nitro/vite";
 
 export default defineConfig({
   plugins: [
     tanstackStart(),
-    nitro(),
     react(),
     tailwindcss(),
     tsConfigPaths(),
   ],
   server: {
+    port: 3000,
     proxy: {
       "/api": {
         target: "https://admin-moderator-backend-staging.up.railway.app",

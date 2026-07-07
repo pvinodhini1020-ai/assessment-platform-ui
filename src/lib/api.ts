@@ -1,10 +1,7 @@
 // ─── Global API Configuration ────────────────────────────────────────────────
 
 /** Base URL for all backend API calls. Change this once to affect the whole app. */
-export const API_BASE_URL =
-  typeof window !== "undefined"
-    ? "/api"  // browser: goes through Vite proxy → no CORS
-    : "https://admin-moderator-backend-staging.up.railway.app/api"; // SSR: direct
+export const API_BASE_URL = "/api";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -324,24 +321,40 @@ const TOKEN_KEY = "auth_token";
 const USER_KEY  = "auth_user";
 
 /** Persist JWT to localStorage so it survives page refreshes. */
-export const saveToken = (token: string) =>
-  localStorage.setItem(TOKEN_KEY, token);
+export const saveToken = (token: string) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+};
 
 /** Retrieve the stored JWT (null if not logged in). */
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
+export const getToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+  return null;
+};
 
 /** Remove the JWT + user on logout. */
 export const clearToken = () => {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+  }
 };
 
 /** Persist the logged-in user object. */
-export const saveUser = (user: LoginUser) =>
-  localStorage.setItem(USER_KEY, JSON.stringify(user));
+export const saveUser = (user: LoginUser) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+};
 
 /** Retrieve the logged-in user object (null if not logged in). */
 export const getUser = (): LoginUser | null => {
-  const raw = localStorage.getItem(USER_KEY);
-  return raw ? (JSON.parse(raw) as LoginUser) : null;
+  if (typeof window !== "undefined") {
+    const raw = localStorage.getItem(USER_KEY);
+    return raw ? (JSON.parse(raw) as LoginUser) : null;
+  }
+  return null;
 };
